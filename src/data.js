@@ -1,0 +1,15 @@
+export const seed={
+ companies:[{id:'co1',name:'Nav Ayurveda',plan:'Premium',status:'Active'},{id:'co2',name:'Wellness India',plan:'Basic',status:'Active'}],
+ franchises:[{id:'fr1',companyId:'co1',name:'Patna Main',city:'Patna',manager:'Amit Sharma'},{id:'fr2',companyId:'co1',name:'Gaya Center',city:'Gaya',manager:'Rakesh Kumar'},{id:'fr3',companyId:'co2',name:'Ranchi Outlet',city:'Ranchi',manager:'Neha Singh'}],
+ customers:[{id:'cu1',name:'Rahul Kumar',mobile:'9876543210',address:'Boring Road, Patna',distributorId:'MLM1001'},{id:'cu2',name:'Priya Singh',mobile:'9123456780',address:'Kankarbagh, Patna',distributorId:'MLM1002'},{id:'cu3',name:'Amit Patel',mobile:'9988776655',address:'Danapur, Patna',distributorId:'MLM1003'},{id:'cu4',name:'Neha Verma',mobile:'9001122334',address:'Patna City',distributorId:'MLM1004'}],
+ products:[{id:'p1',name:'Herbal Juice (500ml)',sku:'NJ-101',sale:600,purchase:420,sp:25,bv:20,pv:15,stock:12,min:20},{id:'p2',name:'Health Kit',sku:'NJ-102',sale:1500,purchase:1050,sp:100,bv:80,pv:60,stock:8,min:10},{id:'p3',name:'Face Wash',sku:'NJ-103',sale:350,purchase:240,sp:10,bv:8,pv:5,stock:0,min:15},{id:'p4',name:'Aloe Vera Gel',sku:'NJ-104',sale:450,purchase:300,sp:15,bv:12,pv:10,stock:24,min:20},{id:'p5',name:'Protein Powder',sku:'NJ-105',sale:850,purchase:620,sp:40,bv:35,pv:30,stock:5,min:10}],
+ invoices:[{id:'INV-00125',customerId:'cu1',date:'2026-10-26',items:[{productId:'p1',qty:2,delivered:1},{productId:'p2',qty:1,delivered:1},{productId:'p3',qty:2,delivered:0}],total:3400,paid:2000,pointUsed:false,pointId:''},{id:'INV-00126',customerId:'cu2',date:'2026-10-26',items:[{productId:'p4',qty:3,delivered:2},{productId:'p5',qty:1,delivered:0}],total:2200,paid:2200,pointUsed:true,pointId:'MLM1002'},{id:'INV-00127',customerId:'cu3',date:'2026-10-25',items:[{productId:'p1',qty:3,delivered:3}],total:1800,paid:1200,pointUsed:false,pointId:''}],
+ payments:[{id:'pay1',invoiceId:'INV-00125',customerId:'cu1',date:'2026-10-26',amount:2000,mode:'Cash',type:'sale',utr:''},{id:'pay2',invoiceId:'INV-00126',customerId:'cu2',date:'2026-10-26',amount:2200,mode:'Bank',type:'sale',utr:'UTR782019'},{id:'pay3',invoiceId:'INV-00127',customerId:'cu3',date:'2026-10-25',amount:1200,mode:'Cash',type:'sale',utr:''}],
+ orders:[{id:'PO-00101',companyInvoice:'CMP-2026-105',date:'2026-10-25',status:'Partial',paymentMode:'Bank',payment:7500,items:[{productId:'p1',ordered:20,good:12,leakage:3,missing:5}]}],
+ leakage:[{id:'LKG-001',orderId:'PO-00101',invoice:'CMP-2026-105',productId:'p1',qty:3,replaced:0,reason:'Bottle leakage',status:'Pending'}],
+ transfers:[{id:'TR-001',date:'2026-10-25',amount:5000,from:'Cash',to:'Bank',receipt:'Deposit Slip #128'}],
+ returns:[],adjustments:[],closings:[],deliveryHistory:[],
+ staff:[{id:'st1',name:'Amit Sharma',role:'Owner',status:'Active'},{id:'st2',name:'Rakesh Kumar',role:'Manager',status:'Active'},{id:'st3',name:'Sunil Das',role:'Cashier',status:'Active'}],
+ audit:[{id:'a1',date:'2026-10-26',action:'Demo workspace initialized',by:'System',detail:'Sample data loaded'}],
+ cashOpening:22500,bankOpening:108000,whatsapp:false
+};
