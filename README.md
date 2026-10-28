@@ -55,3 +55,27 @@ This is **not production accounting software**. Data lives only in one browser (
 ## Vercel `vite: Permission denied` mitigation
 
 The Vercel installation step force-removes any `node_modules` checked into the repository and installs Linux-compatible packages again. The build script calls `node ./node_modules/vite/bin/vite.js build` instead of directly executing the `vite` shim. This specifically addresses the earlier error `node_modules/.bin/vite: Permission denied` (exit 126). **Still delete tracked `node_modules` from GitHub** with the command above; `.gitignore` alone does not remove already tracked files.
+
+## New changes from `softwar2e.pdf` (28 Oct 2026)
+
+All updates below are part of the **same frontend-only React SaaS client demo**; no real API was added.
+
+- **New Sale invoice header:** invoice date on the left and running invoice number on the right, labeled `Invoice No.`. After adding a product, edit its quantity directly in the cart. A footer totals quantity, the unit-price column, points by type, and line amounts.
+- **Invoice details / print:** totals beneath Qty / Price / Point / Amount; product delivery shows `Paid / Delivered` or `Dues N pcs`; point-used records Distributor ID and India-local date/time.
+- **Quotation:** Customer Name, Mobile, Address and product lines with editable quantities. `Convert to Sale` prefills the billing form, then creating the sale generates a new serial invoice number. The quotation by itself never affects physical stock or funds.
+- **Company New Order:** order list and button; order date/serial; company name/mobile/email/address; multiple product lines and editable quantities. Creating an order does not increase stock.
+- **Purchase List:** receipt-based list only. When good/leakage items are received against a pending/partial order, a separate `PUR-00001` style purchase invoice is generated. Good quantity alone increases physical stock. Both order and purchase receipt have **View Invoice**.
+- **Remove SKU entry:** new product form and stock table no longer show SKU (historic demo data may still contain an unused SKU field).
+- **Unused Points:** filter by date, invoice number or customer name; marking a given invoice used keeps that invoice fixed in the dialog.
+- **Customer Dues:** opening a dues receipt from an invoice keeps the invoice fixed, displays its details, and prevents accidental switching.
+- **Product Delivery:** removes the `Billed` column/label from the Product Delivery and Pending Delivery views while retaining quantities internally.
+- **Returns/Refund/Exchange:** search and open invoice, see all products, enter per-product return quantities or use All Return, see return value/refund, and choose Cash or Bank for refund deductions. Damaged returns do not restock. Exchange is a *return record demonstration*; replacement dispatch is not automatically finalized.
+- **Leakage Replacement:** opening a company invoice displays all outstanding leakage products for that invoice; enter good replacement quantities per product. Only accepted good replacements restock.
+
+### Testing and limitations
+
+JSX parsing and transpilation passed via the TypeScript parser available in the build environment. The app was also rendered with a lightweight virtual-React test harness against **15 pages and 8 dialogs**, with no render exceptions found. A real `npm run build` could **not** be completed in this environment because `npm install` timed out; Vercel deployment is not guaranteed until a full Vite build runs on your deployment environment. The temporary test harness is **not** part of the delivered project.
+
+Vercel is configured to **clean-install Linux dependencies**, build using `node ./node_modules/vite/bin/vite.js build`, and publish the Vite `dist` directory. The ZIP intentionally contains no `node_modules` or `dist` folder.
+
+> Demo-only: Data is kept in this browser's localStorage. It is not financially/audit safe, multi-user synchronized, real WhatsApp connected, or ready for production use.

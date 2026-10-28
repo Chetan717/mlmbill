@@ -38,3 +38,24 @@ This is a **frontend-only interactive demo**: data is in localStorage and editab
 - JSX transpilation: PASS.
 - Mock-React runtime smoke checks for Dashboard, accordion, New Sale, Sale List, Profile, Purchase List, Stock valuation and Customer Dues form: PASS.
 - Actual `npm run build`: **not run to completion here**, because the execution environment cannot resolve `registry.npmjs.org` to install dependencies. Vercel has network access and will install dependencies using `vercel.json`.
+
+## `softwar2e.pdf` update acceptance checklist
+
+- [x] Invoice Date (left) / Invoice No (right)
+- [x] Editable quantity after product added to New Sale
+- [x] Qty / Price / Point / Amount footer in cart and invoice details
+- [x] Per-product Delivered/Paid vs Product Dues quantity on invoice
+- [x] Point Used date and time
+- [x] Quotation with customer details, multiple lines, Convert to Sale
+- [x] New Order list / button, multiple products, editable qty, company contact
+- [x] New Order auto order number/date and View Invoice
+- [x] Purchase List only received receipts, auto Purchase Invoice on Receive, View Invoice
+- [x] SKU removed from new Product form
+- [x] Unused Points search by invoice/customer + date filter
+- [x] Invoice fixed in Mark Points Used and Dues Payment dialogs
+- [x] Billed column removed from product delivery views
+- [x] Refund/Return invoice search, per-product selection + all return, refund amounts from Cash/Bank
+- [x] Leakage replacement products grouped under Company Invoice with per-product qty
+- [x] Vercel Vite executable-permission workaround and clean-install config
+
+**Demo scope:** These are interactive frontend demonstrations, **not real accounting transactions**. Replacement delivery for Exchange remains a separate demo follow-up, not an automated transaction. Vite production build was not verified in the current environment due npm registry timeout.
