@@ -1,34 +1,57 @@
-# MLM Franchise Billing SaaS — React Client Demo
+# MLM Franchise Billing SaaS — React Client Demo (PDF Updates + Vercel Fix)
 
-A single React + Vite app for demonstrating the **approved** MLM Franchise SaaS feature scope to clients. **No backend, no API calls, no server database, no WhatsApp connection.** Demo data is preloaded and updates are stored in the browser's localStorage.
+**Purpose:** Show the client how the approved MLM Franchise SaaS works. This is a **frontend-only React + Vite demonstration** with sample data, saved in the browser's `localStorage`. There are **no external APIs, backend services, database, production authentication, or real WhatsApp integration**.
 
-## Run
+## Run locally
 
-1. Install Node.js 20.19+ or 22.12+.
-2. In this folder run `npm install`.
-3. Run `npm run dev`.
-4. Open the localhost URL displayed by Vite (usually http://localhost:5173).
-5. To generate a static client presentation site, run `npm run build` and host the `dist/` folder on any static host.
+Requires Node.js 20.19+ or Node.js 22.12+.
 
-## Included demonstration screens
+```bash
+npm install
+npm run dev
+```
 
-- Updated dashboard: Cash in Hand, Bank Balance, New Sale, New Sale Payment, Dues Collection, Total Payment Received, Customer Dues, Pending Product Delivery, Leakage Claims, Low Stock, illustrative chart, quick actions. No New Customers / Recent Invoices / Recent Payments widgets.
-- Customers & ledger, sale invoices, partial payments, cash/bank, UTR uniqueness check, invoice print, dues receipt by collection date.
-- Invoice-wise and product-wise pending deliveries, searchable customer/mobile/invoice/product, partial/full delivery, stock deduction **only on confirmed delivery**.
-- Company orders (no stock increase on order), good/leakage split on receipt, company invoice, leakage replacement, leakage never enters physical stock.
-- Cash-to-bank transfer, SP/BV/PV, unused invoice points, staff/role preview, daily cash closing, returns/refunds/exchange record, audit, stock adjustments, low-stock alerts, reports, multi-company/franchise admin preview, WhatsApp message preview.
+Open the local URL displayed in your terminal.
 
-## Honest demo limitations
+## Deploy to Vercel
 
-- Frontend-only **client demonstration**, not a secure accounting system. Browser data can be edited, reset, or cleared. No auth, real staff permissions, or tenant isolation.
-- SaaS franchise selector previews franchise identity; demo records are shared across selections.
-- WhatsApp connection is a mock preview only. Official QR / WhatsApp Business API requires external infrastructure.
-- File attachments are represented by reference text; there is no real file upload/storage.
-- Charts use illustrative demo data. Other screens update from local demo state.
-- Exchange is a return record; separate replacement sale flow is not automated.
-- Refund, cash and stock rules are simplified to illustrate behavior; do not use for live transactions.
-- No real API requests are made. Dependencies are downloaded once at `npm install`.
+1. Upload the **project files** to GitHub, **not** `node_modules/` or `dist/`.
+2. Use Framework Preset **Vite**, Root Directory `./`, Install Command `rm -rf node_modules && npm install --include=dev`, Build Command `npm run build` (executes Vite via Node to avoid UNIX executable permission issues), Output Directory `dist`.
+3. Redeploy without the previous build cache if the old deployment copied Windows `node_modules` into the repository.
 
-## Reset
+**To remove previously tracked `node_modules` from the existing Git repository:**
 
-Use **Reset Demo Data** at the bottom of the left navigation. You can also clear this site's localStorage.
+```bash
+git rm -r --cached node_modules
+# If Git says "pathspec ... did not match", it's already untracked.
+git add .
+git commit -m "Update SaaS demo and fix Vercel dependencies"
+git push origin main
+```
+
+The `.gitignore` prevents future dependency/build folder commits. `vercel.json` provides stable Vite settings and SPA route fallback.
+
+## Changes implemented from `software.pdf`
+
+- **My Profile**: franchise name, logo (local browser demo), address, GST number, mobile number, email; appears at the top of the printed invoice.
+- **Dashboard**: selectable custom date range with Total Sale, New Sale Payment, Dues Collection Payment and Total Payment; Cash & Bank balances remain; no Recent Payments, Recent Invoices or New Customer widget.
+- **Accordion sidebar**: Sale (New Sale, Sale List, Quotation, Customer History), Purchase (New Order, Purchase List), Product (Add Product, Product Delivery, Pending Product Delivery, Stock, Low Stock Alert, Return/Refund/Exchange, Leakage Claims), Payment (Customer Dues, Cash & Bank, Daily Cash Closing). Click again to collapse.
+- **New Sale**: name entry with matching customer suggestions and full autofill, mobile and address, auto invoice date and sequential invoice number; new customers are saved for future use.
+- **Split payments**: Cash + Online/Bank amounts for New Sale and Customer Dues, mandatory UTR if online amount > 0, duplicate UTR rejection across **all** sale/dues payments with the existing invoice number shown.
+- **Sale List**: filter by customer name/mobile/invoice and custom date range; total invoice count, sale amount, payments and remaining outstanding.
+- **Quotation**: basic quotation creation & history with date filter; no effect on stock or collections.
+- **Product**: choose **exactly one** point type per product (SP, BV or PV, or None) and one point value, add opening physical quantity. Invoice points show each product's applicable type only.
+- **Stock**: current physical quantity, purchase-price stock valuation per product and overall totals.
+- **Company Purchase**: orders stay in New Order until products received; received/partial receipts in Purchase List, date filter and totals. Stock goes up **only for good received products**, while leakage stays in separate claims.
+- **Product Delivery**: invoice creation never deducts stock; confirmed product-wise delivery does. Pending delivery is searchable by customer/mobile/product/invoice and shows current stock availability.
+- **Existing approved client demo**: customer history/ledger, dues, cash-bank transfer, leakage claims/replacement, returns, cash closing, audit, stock adjustment, low-stock alerts, unused points, staff demo, WhatsApp preview and SaaS admin preview.
+
+## Demo limitations
+
+This is **not production accounting software**. Data lives only in one browser (can be cleared/reset); franchise switching is illustrative, not tenant isolation. Receipt references and WhatsApp are previews; no real uploads, messaging or billing API. Demo roles are not a security boundary. Cash, taxes and financial rules need production-grade backend validation before actual business use.
+
+**Reset data:** Use “Reset Demo Data” in the sidebar. Existing browser data from an earlier demo version may need to be reset for the updated sample point types/profiles to appear.
+
+## Vercel `vite: Permission denied` mitigation
+
+The Vercel installation step force-removes any `node_modules` checked into the repository and installs Linux-compatible packages again. The build script calls `node ./node_modules/vite/bin/vite.js build` instead of directly executing the `vite` shim. This specifically addresses the earlier error `node_modules/.bin/vite: Permission denied` (exit 126). **Still delete tracked `node_modules` from GitHub** with the command above; `.gitignore` alone does not remove already tracked files.
